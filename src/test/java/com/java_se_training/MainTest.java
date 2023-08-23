@@ -57,4 +57,20 @@ public class MainTest {
         Assertions.assertEquals(expected, result);
         
     }
+
+    //negative 1 
+
+        @Test
+    void negativeNumberTesting(){          
+        // when -> pass value less than 1
+        
+
+        Assertions.assertThrows(IllegalArgumentException.class, 
+        () ->{
+           main.determineGrade(-1);
+        }
+        );         
+      
+        
+    }
 }

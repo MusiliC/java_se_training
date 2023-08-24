@@ -32,6 +32,8 @@ public class MainTest {
          Assertions.assertTrue(result == expected);
     }
 
+
+    
     //testing
     @Test
     void determineF(){
@@ -64,7 +66,6 @@ public class MainTest {
     void negativeNumberTesting(){          
         // when -> pass value less than 1
         
-
         Assertions.assertThrows(IllegalArgumentException.class, 
         () ->{
            main.determineGrade(-1);

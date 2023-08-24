@@ -1,8 +1,13 @@
 package com.java_se_training;
 
+import java.util.logging.Logger;
+
+
 public class Main {
+
+       private static final Logger LOGGER = Logger.getLogger(Main.class.getName()); 
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        LOGGER.info("Hello world!");
     }
 
     public int add(int a , int b){

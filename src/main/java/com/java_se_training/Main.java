@@ -5,13 +5,17 @@ import java.util.logging.Logger;
 
 public class Main {
 
-       private static final Logger LOGGER = Logger.getLogger(Main.class.getName()); 
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName()); 
     public static void main(String[] args) {
         LOGGER.info("Hello world!");
     }
 
     public int add(int a , int b){
         return a + b;
+    }
+
+    public double computeCircleArea(double radius){
+        return Math.PI * radius * radius;
     }
 
     public char determineGrade(int numberGrade){

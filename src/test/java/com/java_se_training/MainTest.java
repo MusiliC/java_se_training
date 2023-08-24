@@ -7,17 +7,15 @@ public class MainTest {
 
     //? References => Main Class
     Main main = new Main();
-
-
     
     @Test
     void add(){
         //when
-        int result = main.add(2, 3);
+        int actual = main.add(2, 3);
         //then
         int expected = 5;
         //verify that ? result == expected
-         Assertions.assertEquals(expected, result, "The sum of 2 + 3 = 5 ");
+         Assertions.assertEquals(expected, actual, "The sum of 2 + 3 = 5 ");
       
     }
 
@@ -25,13 +23,12 @@ public class MainTest {
     @Test
     void addTwo(){
         //when
-        int result = main.add(3, 3);
+        int actual = main.add(3, 3);
         //then
         int expected = 6;
         //verify that ? result == expected
-         Assertions.assertTrue(result == expected);
+         Assertions.assertTrue(actual == expected);
     }
-
 
     
     //testing
@@ -48,9 +45,7 @@ public class MainTest {
 
         //testing
     @Test
-    void determineD(){
-
-          
+    void determineD(){          
         // when -> pass value less than 60
         char result = main.determineGrade(68);
         
@@ -60,10 +55,23 @@ public class MainTest {
         
     }
 
-    //negative 1 
 
+       @Test
+    void circleArea(){
+        //when -> pass value
+        double result = main.computeCircleArea(10);
+
+        //expected output
+        double expected = 314.1592653589793;
+
+        // Assertions.assertEquals(expected, result, "Should return right value");
+        //asserts not null
+        Assertions.assertNotNull(result);
+    }  
+    //negative 1 
         @Test
-    void negativeNumberTesting(){          
+    void negativeNumberTesting(){           
+   
         // when -> pass value less than 1
         
         Assertions.assertThrows(IllegalArgumentException.class, 

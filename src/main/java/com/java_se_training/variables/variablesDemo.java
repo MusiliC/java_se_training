@@ -24,6 +24,15 @@ public class variablesDemo {
         int  a = aWrapper.intValue();
         LOGGER.info("Get int value fro byte wrapper " + a);
 
+        // casting
+        //Wide Cast:
+        int someNumber = 5;
+        long wideCastedNumber = (long)someNumber;
+
+        //Narrow Cast:
+        double anotherNumber = 5.39;
+        int narrowCastedNumber = (int)someNumber;
+
         //short
         short s = 23;
         Short sWrapper = 23;

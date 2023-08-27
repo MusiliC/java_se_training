@@ -82,10 +82,64 @@ public class OperatorsDemo {
         LOGGER.info("Comparison greater or equal " + isCheckingLessOrEqual);
      }
     
+     public void andLogicalOperators(){
+
+      int studentAge = 24;
+      int pupilAge = 18;
+
+      boolean isStudentAllowed = studentAge   >= 18;
+      boolean isPupilAllowed  =  pupilAge >= 18;
+
+      //and operator
+      if( isStudentAllowed && isPupilAllowed){
+
+         LOGGER.info("All students allowed for registration");
+      } else{
+         LOGGER.info("Not all allowed");
+      }
+
+     }
+
+     public void orLogicalOperators(){
+
+      int studentAge = 24;
+      int pupilAge = 16;
+
+      boolean isStudentAllowed = studentAge   >= 18;
+      boolean isPupilAllowed  =  pupilAge >= 18;
+
+      //and operator
+      if( isStudentAllowed || isPupilAllowed){
+         LOGGER.info("All students allowed for registration");
+      } else{
+         LOGGER.info("Not all allowed");
+      }
+
+     }
+     
+     
+     public void notLogicalOperators(){
+
+      int studentAge = 24; 
+
+      boolean isStudentAllowed = studentAge   >= 18;      
+
+      //and operator
+      if( !isStudentAllowed ){
+         LOGGER.info("All students allowed for registration");
+      } else{
+         LOGGER.info("Not all allowed");
+      }
+
+     }
+     
      public static void main(String[] args) {
         OperatorsDemo app = new OperatorsDemo();
         // app.arithmeticOperators();
         //app.assignmentOperators();
-        app.comparisonOperators();
+        //app.comparisonOperators();
+        //app.andLogicalOperators();
+       // app.orLogicalOperators();
+       app.notLogicalOperators();
     }
 }

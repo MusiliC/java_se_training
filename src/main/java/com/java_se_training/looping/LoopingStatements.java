@@ -14,10 +14,31 @@ public class LoopingStatements {
         }
      }
 
-    public static void main(String[] args) {
-        LoopingStatements app = new LoopingStatements();
+     public void whileLoop (){
+     int age = 0;
 
-        app.forLoop();;
+     while (age < 10) {
+        LOGGER.info("Student age " + age);
+        age++;
+       }
+     }
+
+     public void doWhileLoop(){
+        int age = 0;
+
+        do{
+            LOGGER.info("Student age " + age);
+            age++;
+        }
+        while(age < 5);
+
+     }
+    
+     public static void main(String[] args) {
+        LoopingStatements app = new LoopingStatements();
+        //app.forLoop();
+        //app.whileLoop();
+        app.doWhileLoop();
     }
     
 }

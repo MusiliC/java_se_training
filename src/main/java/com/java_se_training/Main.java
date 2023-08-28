@@ -20,8 +20,8 @@ public class Main {
 
     public char determineGrade(int numberGrade){
         if(numberGrade < 0){
-            //throw new IllegalArgumentException("Number grade cannot be empty");
-            return 'F';
+            throw new IllegalArgumentException("Number grade cannot be empty");
+          
         }
         else if(numberGrade < 60){
             return 'F';

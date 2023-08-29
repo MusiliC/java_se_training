@@ -59,10 +59,29 @@ public class ControlFlow {
         }
     }
 
+    public void breakJumpStatement(){
+        for (int index = 0; index<10 ; index ++){
+            if(index == 5){
+                break;
+            }
+            LOGGER.info("index is " + index);
+        }
+    }
+    public void breakContinueStatement(){
+         for (int index = 0; index<10 ; index ++){
+            if(index == 5){
+                continue;
+            }
+            LOGGER.info("index is " + index);
+        }
+    }
+
     public static void main(String[] args) {
         ControlFlow app = new ControlFlow();
 
         //app.ifElseStatement();
-         app.switchStatements();
+        //app.switchStatements();
+        //app.breakJumpStatement();;
+        app.breakContinueStatement();
     }
 }

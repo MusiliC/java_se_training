@@ -32,6 +32,14 @@ public class LoopingStatements {
         }
         while(age < 5);
 
+        String name = "Musili";
+
+       LOGGER.info("String methods " + name.charAt(1));
+       LOGGER.info("String methods " + name.trim());
+       LOGGER.info("String methods " + name.toUpperCase());
+       LOGGER.info("String methods " + name.contains("k"));
+       LOGGER.info("String methods " + name.replace("u", "b"));
+
      }
     
     public int search(int numberToSearch){
@@ -42,11 +50,12 @@ public class LoopingStatements {
         }
         return 0;
     }
-     public static void main(String[] args) {
+     
+    public static void main(String[] args) {
         LoopingStatements app = new LoopingStatements();
         //app.forLoop();
         //app.whileLoop();
-        //app.doWhileLoop();
+        app.doWhileLoop();
         //app.search(12);
     }
     

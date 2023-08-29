@@ -34,11 +34,20 @@ public class LoopingStatements {
 
      }
     
+    public int search(int numberToSearch){
+        for(int index = 1; index <= 50; index++){
+            if(numberToSearch == index){
+            return index;
+            }
+        }
+        return 0;
+    }
      public static void main(String[] args) {
         LoopingStatements app = new LoopingStatements();
         //app.forLoop();
         //app.whileLoop();
-        app.doWhileLoop();
+        //app.doWhileLoop();
+        //app.search(12);
     }
     
 }

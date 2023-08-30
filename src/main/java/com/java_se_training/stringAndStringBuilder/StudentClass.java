@@ -22,6 +22,9 @@ public class StudentClass {
     return sb.toString();
   }
     public static void main(String[] args) {
-        
+        StudentClass app = new StudentClass();
+
+        String fulName = app.getFullName();
+        LOGGER.info(fulName);
     }
 }

@@ -10,8 +10,11 @@ public class StringBuilderMethodDemo {
     public static void main(String[] args) {
         StringBuilder sb = new StringBuilder(100);
 
+         Class<?> dataTypeClass = sb.getClass();
+         LOGGER.info("Data type is " + dataTypeClass);
+
         String str = "";
 
-       LOGGER.info(" " + str.equals(sb.toString()));
+       LOGGER.info(" " + str.toString().equals(sb.toString()));
     }
 }

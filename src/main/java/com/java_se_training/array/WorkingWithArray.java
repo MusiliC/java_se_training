@@ -24,6 +24,8 @@ public class WorkingWithArray {
           LOGGER.info("Index " + numbers[i]);
          }
         }
+
+        
      
       }
 

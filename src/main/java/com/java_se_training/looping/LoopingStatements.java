@@ -2,8 +2,6 @@ package com.java_se_training.looping;
 
 import java.util.logging.Logger;
 
-
-
 public class LoopingStatements {
 
      private static final Logger LOGGER = Logger.getLogger(LoopingStatements.class.getName()); 

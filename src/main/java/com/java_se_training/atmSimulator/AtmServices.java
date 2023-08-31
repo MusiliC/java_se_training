@@ -104,7 +104,9 @@ public class AtmServices {
             System.out.println("Always feel welcomed again, Thank you!");
         }
         
+        sn.close();
     }
+
 
     public static void main(String[] args) {
         AtmServices app = new AtmServices();

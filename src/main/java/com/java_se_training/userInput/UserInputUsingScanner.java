@@ -3,6 +3,8 @@ package com.java_se_training.userInput;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+import com.java_se_training.utils.ValidateInput;
+
 
 
 public class UserInputUsingScanner {
@@ -24,10 +26,16 @@ public class UserInputUsingScanner {
         
         System.out.print("Enter a string: ");
         String text = scanner.nextLine();
-        
-        System.out.println("Integer: " + num);
-        System.out.println("String: " + text);
 
-         scanner.close();
+        if(ValidateInput.validate(text)){
+          System.out.println("Integer: " + num);
+        System.out.println("String: " + text);
+        }else{
+           throw new IllegalStateException("Invalid input");
+      }
+           scanner.close();
+        
+       
+
      }
 }

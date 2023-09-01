@@ -2,6 +2,8 @@ package com.java_se_training.atmSimulator;
 
 import java.util.Scanner;
 
+import com.java_se_training.constants.Constants;
+
 public class AtmServices {
 
     
@@ -67,7 +69,7 @@ public class AtmServices {
                     case 3:
                           System.out.print("\nKindly enter the amount to withdrawal: ");
                            double amountWithdrawal = sn.nextDouble();
-                           double  amountWithdrawalCharge = (amountWithdrawal * 2)/100;
+                           double  amountWithdrawalCharge = amountWithdrawal * Constants.RATE;
                            double totalAmountWithdrawalWithCharges = amountWithdrawal + amountWithdrawalCharge; 
                            if(totalAmountWithdrawalWithCharges > balance){
                             System.out.println("Your have insufficient funds to withdrawal this  amount" + " ksh " + amountWithdrawal);

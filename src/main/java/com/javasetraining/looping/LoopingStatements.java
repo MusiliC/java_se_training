@@ -1,4 +1,4 @@
-package com.java_se_training.looping;
+package com.javasetraining.looping;
 
 import java.util.logging.Logger;
 

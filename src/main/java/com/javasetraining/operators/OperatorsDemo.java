@@ -1,4 +1,4 @@
-package com.java_se_training.operators;
+package com.javasetraining.operators;
 
 import java.util.logging.Logger;
 

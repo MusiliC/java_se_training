@@ -1,4 +1,4 @@
-package com.java_se_training.variables;
+package com.javasetraining.variables;
 
 public class SampleClass {
     public int age = 10;

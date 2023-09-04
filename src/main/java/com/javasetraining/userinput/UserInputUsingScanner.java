@@ -1,9 +1,9 @@
-package com.java_se_training.userInput;
+package com.javasetraining.userinput;
 
 import java.util.Scanner;
 import java.util.logging.Logger;
 
-import com.java_se_training.utils.ValidateInput;
+import com.javasetraining.utils.ValidateInput;
 
 
 

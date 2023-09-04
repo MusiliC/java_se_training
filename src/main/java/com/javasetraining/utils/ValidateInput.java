@@ -1,4 +1,4 @@
-package com.java_se_training.utils;
+package com.javasetraining.utils;
 
 public class ValidateInput {
 

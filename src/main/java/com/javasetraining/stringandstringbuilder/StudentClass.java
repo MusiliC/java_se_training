@@ -1,4 +1,4 @@
-package com.java_se_training.stringAndStringBuilder;
+package com.javasetraining.stringandstringbuilder;
 
 import java.util.logging.Logger;
 

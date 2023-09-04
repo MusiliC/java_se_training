@@ -1,4 +1,4 @@
-package com.java_se_training;
+package com.javasetraining;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

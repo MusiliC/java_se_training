@@ -1,4 +1,4 @@
-package com.java_se_training;
+package com.javasetraining;
 
 import java.util.logging.Logger;
 

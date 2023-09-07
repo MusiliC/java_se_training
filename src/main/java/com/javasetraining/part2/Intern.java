@@ -10,6 +10,19 @@ public class Intern {
     String number;
     String email;
 
+    public Intern (String name, String number, String email){
+        this.name = name;
+        this.email = email;
+        this.number = number;
+
+        this.doAssignment();
+        
+    }
+
+    public Intern(){}
+
+    
+
     public void attendClass() {
         LOGGER.info("Attended class");
     }

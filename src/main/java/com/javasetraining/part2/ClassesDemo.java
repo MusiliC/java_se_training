@@ -6,18 +6,26 @@ public class ClassesDemo {
         ClassesDemo app = new ClassesDemo();
 
         app.interns();
-        app.carInstances();
+        //app.calculatorMethod();
+        //app.carInstances();
+    }
+
+    public void calculatorMethod(){
+        Calculator calculator = new Calculator(); // !Calculator - constructor - special method for creating instance of particular  class - they do not have return types - only function name - with access modifier - have same name as class
+
+        calculator.welcomeMessage();
+
+        int result = calculator.sum(2,3);
+
+        System.out.println("Answer is " + result);
     }
 
     public void interns() {
-        Intern musili = new Intern();
-
-        musili.name = "Musili Brian";
-        musili.email = "musili@gmail.com";
-        musili.name = "07112233";
+        Intern musili = new Intern("Musili Brian","musili@gmail.com",  "07112233");
 
         musili.doAssignment();
         musili.attendClass();
+        System.out.println(musili.name);
 
         Intern winnie = new Intern();
 

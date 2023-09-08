@@ -3,6 +3,8 @@ package com.javasetraining;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.systechafrica.Main;
+
 public class MainTest {
 
     //? References => Main Class

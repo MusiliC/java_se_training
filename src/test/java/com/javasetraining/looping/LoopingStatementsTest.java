@@ -3,6 +3,8 @@ package com.javasetraining.looping;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.systechafrica.looping.LoopingStatements;
+
 public class LoopingStatementsTest {
     
     LoopingStatements app = new LoopingStatements();

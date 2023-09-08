@@ -1,4 +1,4 @@
-package com.javasetraining.part2;
+package com.javasetraining.part2.classes;
 
 public class ClassesDemo {
 

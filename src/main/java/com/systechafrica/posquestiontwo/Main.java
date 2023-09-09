@@ -6,17 +6,87 @@ public class Main {
 
     Scanner scanner = new Scanner(System.in);
 
-    Item[] itemsArray = new Item[1000]; // ?initializing the array to hold 1000 items assuming its not expected user to
-                                        // ? enter 1000 items
+    final String PASSWORD = "Admin123";
+    Item[] itemsArray = new Item[10000]; // ?initializing the array to hold 10,000 items assuming its not expected user to
+                                        // ? enter 10,000 items
     int numberOfItems = 0;
-
     double totalPriceOfAllItems = 0;
-
     int userAmount = 0;
 
-    public void addItem() {
+    public boolean userLogin() {
 
-        while (true) {
+        int passwordAttempts = 1;
+        boolean isUserLoggedIn = false;
+
+        System.out.println();
+        System.out.println("Welcome to Systech POS System");
+        System.out.println();
+
+        while (passwordAttempts <= 3) {
+            System.out.print("Enter your password: ");
+            String password = scanner.nextLine();
+
+            if (password.equals(PASSWORD)) {
+                isUserLoggedIn = true;
+                break;
+            }
+
+            if (passwordAttempts == 3) {
+                System.out.println("Wrong password, Maximum attempts Try again later!");
+            } else {
+                System.out.println("Wrong password, Try again");
+            }
+
+            passwordAttempts = passwordAttempts + 1;
+        }
+
+        return isUserLoggedIn;
+
+    }
+
+    public void displayMenu() {
+        System.out.println();
+        System.out.println("*****************************************");
+        System.out.println();
+        System.out.println("SYSTECH POS SYSTEM");
+        System.out.println();
+        System.out.println("*****************************************");
+        System.out.println();
+        System.out.println("1. ADD ITEM");
+        System.out.println("2. MAKE PAYMENT");
+        System.out.println("3. DISPLAY RECEIPT");
+        System.out.println();
+        System.out.print("Choose an option: ");
+
+        int option = scanner.nextInt();
+
+        scanner.nextLine();
+
+        System.out.println();
+
+        switch (option) {
+            case 1:
+                addItem();
+                break;
+            case 2:
+                makePayment();
+                break;
+            case 3:
+                displayReceipt();
+                break;
+
+            default:
+                System.out.println("Invalid Option, Choose between 1-3");
+                System.out.println();
+                displayMenu();
+                break;
+        }
+
+    }
+
+    public void addItem() {
+        char choice;
+        do {
 
             Item item = new Item();
 
@@ -36,7 +106,7 @@ public class Main {
 
             double itemPrice = scanner.nextDouble();
 
-            itemsArray[numberOfItems] = item;
+            itemsArray[numberOfItems] = item; //adding item to items array container
             numberOfItems = numberOfItems + 1;
 
             scanner.nextLine();
@@ -44,14 +114,21 @@ public class Main {
             item.setPrice(itemPrice);
 
             System.out.print("Do you want to add another item? (Y/N): ");
-            String choice = scanner.nextLine();
+            choice = scanner.nextLine().toUpperCase().charAt(0);
             System.out.println();
-            if (choice.equalsIgnoreCase("n")) {
-                break;
-            }
-        }
 
-        displayAllItems();
+        } while (choice == 'Y');
+        displayMenu();
+
+    }
+
+    public void makePayment() {
+
+        if (numberOfItems == 0) {
+            System.out.println("No items in the shopping cart");
+        } else {
+            displayAllItems();
+        }
     }
 
     public void displayAllItems() {
@@ -77,20 +154,21 @@ public class Main {
         System.out.println("********************************************************************");
         System.out.println();
 
-        enterUserAmount(); // I am using method to enter user amount so that when the cashier enters insufficient amount it can call the method again
+        enterUserAmount(); // I am using method to enter user amount so that when the cashier enters
+                           // insufficient amount it can call the method again
 
         while (userAmount < totalPriceOfAllItems) {
-        System.out.println();
-        System.out.println("Insufficient amount, Kindly confirm user amount and try again");
-        System.out.println();
-        enterUserAmount();
+            System.out.println();
+            System.out.println("Insufficient amount, Kindly confirm user amount and try again");
+            System.out.println();
+            enterUserAmount();
         }
 
         System.out.println();
 
         double userChange = userAmount - totalPriceOfAllItems;
 
-        System.out.println("Change: \t" + "sh: " + userChange);
+        System.out.println("Change: \t" + "sh " + userChange);
 
         System.out.println();
 
@@ -107,9 +185,20 @@ public class Main {
         userAmount = scanner.nextInt();
     }
 
+    public void displayReceipt() {
+        System.out.println("Not supported at the moment");
+    }
+
     public static void main(String[] args) {
         Main app = new Main();
 
-        app.addItem();
+        // app.addItem();
+        boolean userSignedIn = app.userLogin();
+        if (userSignedIn) {
+            System.out.println();
+            System.out.println("Successfully signed in");
+            app.displayMenu();
+
+        }
     }
 }

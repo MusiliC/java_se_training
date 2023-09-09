@@ -1,4 +1,4 @@
-package com.systechafrica.posquestiontwo;
+package com.systechafrica.pos;
 
 import java.util.Scanner;
 

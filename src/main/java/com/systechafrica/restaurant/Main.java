@@ -197,8 +197,9 @@ public class Main {
 
     public void exitSystem(){
         System.out.println();
-        System.out.println("Exiting system");
+        System.out.println("Exiting system..");
         System.exit(0);
+        System.out.println();
     }
 
     public static void main(String[] args) {

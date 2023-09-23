@@ -3,7 +3,7 @@ package com.javasetraining.looping;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.systechafrica.looping.LoopingStatements;
+import com.systechafrica.part1.looping.LoopingStatements;
 
 public class LoopingStatementsTest {
     

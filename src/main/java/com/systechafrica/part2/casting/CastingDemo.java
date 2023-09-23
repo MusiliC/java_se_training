@@ -1,7 +1,7 @@
 package com.systechafrica.part2.casting;
 
-import oopdemo.inheritancedemo.Animal;
-import oopdemo.inheritancedemo.Dog;
+import com.systechafrica.part1.oopdemo.inheritancedemo.Animal;
+import com.systechafrica.part1.oopdemo.inheritancedemo.Dog;
 
 public class CastingDemo {
     public static void main(String[] args) {

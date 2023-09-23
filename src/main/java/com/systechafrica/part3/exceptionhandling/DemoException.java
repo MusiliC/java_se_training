@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DemoException {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ArithmeticException, InputMismatchException,ArrayIndexOutOfBoundsException {
         int i, j = 2, k = 0;
         // int a[] = new int[4];
         i = 8;

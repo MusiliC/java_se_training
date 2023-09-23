@@ -7,6 +7,7 @@ public class UserDefinedException {
 
             if (i<10) {
                 try {
+                    //throw keyword throws the exception, then catch block catches it
                     throw new MyExecption("Error");
                 } catch (Exception e) {
                     System.out.println(e);

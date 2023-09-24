@@ -1,0 +1,6 @@
+2023-09-24 21:29:14 | main | INFO | Info logging message
+2023-09-24 21:29:14 | main | SEVERE | Error logging message
+2023-09-24 21:29:14 | main | WARNING | Warning logging message
+2023-09-24 21:29:14 | test | INFO | Info logging message test 
+2023-09-24 21:29:14 | test | SEVERE | Error logging message test 
+2023-09-24 21:29:14 | test | WARNING | Warning logging message test 

@@ -2,13 +2,16 @@ package com.systechafrica.pos;
 
 import java.util.Scanner;
 
+import com.systechafrica.exceptionhandling.ZeroNegativeErrorHandling;
+
 public class Main {
 
     Scanner scanner = new Scanner(System.in);
 
     final String PASSWORD = "Admin123";
-    Item[] itemsArray = new Item[10000]; // ?initializing the array to hold 10,000 items assuming its not expected user to
-                                        // ? enter 10,000 items
+    Item[] itemsArray = new Item[10000]; // ?initializing the array to hold 10,000 items assuming its not expected user
+                                         // to
+                                         // ? enter 10,000 items
     int numberOfItems = 0;
     double totalPriceOfAllItems = 0;
     int userAmount = 0;
@@ -66,7 +69,12 @@ public class Main {
 
         switch (option) {
             case 1:
-                addItem();
+                try {
+                    addItem();
+                } catch (ZeroNegativeErrorHandling e) {
+                    System.out.println(e.getMessage());
+                    displayMenu();
+                }
                 break;
             case 2:
                 makePayment();
@@ -84,7 +92,7 @@ public class Main {
 
     }
 
-    public void addItem() {
+    public void addItem() throws ZeroNegativeErrorHandling {
         char choice;
         do {
 
@@ -100,13 +108,20 @@ public class Main {
 
             int itemQuantity = scanner.nextInt();
 
+            if (itemQuantity <= 0)
+                throw new ZeroNegativeErrorHandling();
+
             item.setItemQuantity(itemQuantity);
 
             System.out.print("Enter item Price: ");
 
             double itemPrice = scanner.nextDouble();
 
-            itemsArray[numberOfItems] = item; //adding item to items array container
+            if (itemPrice <= 0) {
+                throw new ZeroNegativeErrorHandling();
+            }
+
+            itemsArray[numberOfItems] = item; // adding item to items array container
             numberOfItems = numberOfItems + 1;
 
             scanner.nextLine();

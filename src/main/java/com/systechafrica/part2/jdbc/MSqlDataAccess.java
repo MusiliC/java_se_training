@@ -10,6 +10,7 @@ public class MSqlDataAccess implements DataAccess {
 
     public MSqlDataAccess() {
         try {
+            //load JDBC drivers
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             System.out.println(e.getMessage());
@@ -19,8 +20,9 @@ public class MSqlDataAccess implements DataAccess {
     @Override
     public Connection connect() {
         try {
-
+            //establish connection
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "root", "");
+            //return an object of connection
             return connection;
         } catch (Exception e) {
             System.out.println(e.getMessage());

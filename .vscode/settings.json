@@ -1,5 +1,5 @@
 {
   "java.debug.settings.onBuildFailureProceed": true,
   "java.configuration.updateBuildConfiguration": "automatic",
-  "cSpell.words": ["Resultset"]
+  "cSpell.words": ["JDBC", "Resultset"]
 }

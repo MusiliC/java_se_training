@@ -14,20 +14,16 @@ public class FileLogging {
 
     public static void main(String[] args) throws SecurityException, IOException {
         
-        FileHandler handler = new FileHandler("log.txt");
+        FileHandler handler = new FileHandler("log.txt", true);
         CustomFormatter formatter = new CustomFormatter();
         LOGGER.addHandler(handler);
         handler.setFormatter(formatter);
 
-        LOGGER.info("Info logging message\n");
-        LOGGER.severe("Error logging message\n");
-        LOGGER.warning("Warning logging message\n");
-        test();
+        LOGGER.info("Appending new logs\n");
+        LOGGER.severe("Error appending new logs\n");
+        LOGGER.warning("Warning appending new logs to existing\n");
+        
     }
 
-    private static void test(){
-         LOGGER.info("Info logging message test \n");
-        LOGGER.severe("Error logging message test \n");
-        LOGGER.warning("Warning logging message test \n");
-    }
+
 }

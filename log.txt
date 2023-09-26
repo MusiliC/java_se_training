@@ -7,3 +7,4 @@
 2023-09-26 10:07:13 | main | INFO | Appending new logs
 2023-09-26 10:07:13 | main | SEVERE | Error appending new logs
 2023-09-26 10:07:13 | main | WARNING | Warning appending new logs to existing
+2023-09-26 11:14:12 | Test | INFO | Trying file log handling

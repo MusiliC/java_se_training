@@ -1,0 +1,4 @@
+2023-09-26 15:17:08 | main | INFO | Update status = 0
+2023-09-26 15:17:08 | main | INFO | ID: 1 Item code -> sugar
+2023-09-26 15:18:40 | main | INFO | Update status = 0
+2023-09-26 15:18:41 | main | INFO | ID: 1 Item code -> sugar

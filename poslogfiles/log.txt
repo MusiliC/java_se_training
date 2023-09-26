@@ -1,4 +1,2 @@
-2023-09-26 15:17:08 | main | INFO | Update status = 0
-2023-09-26 15:17:08 | main | INFO | ID: 1 Item code -> sugar
-2023-09-26 15:18:40 | main | INFO | Update status = 0
-2023-09-26 15:18:41 | main | INFO | ID: 1 Item code -> sugar
+2023-09-26 22:08:48 | main | INFO | Successfully signed in2023-09-26 22:08:58 | addItem | INFO | Rows affected i.e inserted 1
+2023-09-26 22:09:25 | addItem | INFO | Rows affected i.e inserted 1

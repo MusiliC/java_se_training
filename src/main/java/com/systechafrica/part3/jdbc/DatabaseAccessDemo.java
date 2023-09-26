@@ -54,8 +54,10 @@ public class DatabaseAccessDemo {
             // execute insert records
 
             // // read input task data details
-            // String insertQuery = "INSERT INTO tasks(title,start_date, due_date, priority, description)VALUES(?,?,?,?,?);";
-            // PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+            // String insertQuery = "INSERT INTO tasks(title,start_date, due_date, priority,
+            // description)VALUES(?,?,?,?,?);";
+            // PreparedStatement preparedStatement =
+            // connection.prepareStatement(insertQuery);
             // Task task = getTaskFromUser(scanner);
             // preparedStatement.setString(1, task.getTitle());
             // preparedStatement.setString(2, task.getStartDate().toString());
@@ -65,28 +67,28 @@ public class DatabaseAccessDemo {
             // int noRowsAffected = preparedStatement.executeUpdate();
             // LOGGER.info("Rows affected i.e inserted " + noRowsAffected);
 
-            //execute selection
+            // execute selection
             String selectQuery = "SELECT * from tasks;";
-            ResultSet resultSet =  statement.executeQuery(selectQuery);
-            while(resultSet.next()){
-                //title, start_date, due_date, priority, description
+            ResultSet resultSet = statement.executeQuery(selectQuery);
+            while (resultSet.next()) {
+                // title, start_date, due_date, priority, description
 
                 int id = resultSet.getInt("task_id");
                 String title = resultSet.getString("title");
-                LocalDate startDate  = handleDbDate( resultSet.getString("start_date"));
+                LocalDate startDate = handleDbDate(resultSet.getString("start_date"));
                 LocalDate dueDate = handleDbDate(resultSet.getString("due_date"));
                 int priority = resultSet.getInt("priority");
                 String description = resultSet.getString("description");
 
-                //map to object
+                // map to object
                 Task dbTask = new Task(id, title, startDate, dueDate, priority, description);
 
                 System.out.println(dbTask);
             }
 
-            //release resources
+            // release resources
             resultSet.close();
-           // preparedStatement.close();
+            // preparedStatement.close();
             statement.close();
             connection.close();
 
@@ -103,43 +105,42 @@ public class DatabaseAccessDemo {
             LOGGER.severe("Database operation failure " + e.getMessage());
         } catch (DateTimeParseException e) {
             LOGGER.severe("Unable to parse date " + e.getMessage());
-        }
-                catch (Exception e) {
+        } catch (Exception e) {
             LOGGER.severe("Oops! error occurred " + e.getMessage());
             e.printStackTrace();
         }
 
     }
 
-    public static LocalDate handleDbDate(String text){
-        if(text == null){
+    public static LocalDate handleDbDate(String text) {
+        if (text == null) {
             return null;
         }
         return LocalDate.parse(text);
     }
 
     // private static Task getTaskFromUser(Scanner scanner) {
-    //     // read input fro console
-    //     // title,start_date, due_date, priority, description
-    //     System.out.print("Enter task title: ");
-    //     String title = scanner.nextLine();
+    // // read input fro console
+    // // title,start_date, due_date, priority, description
+    // System.out.print("Enter task title: ");
+    // String title = scanner.nextLine();
 
-    //     System.out.print("Enter task startDate(YYYY-MM-dd): ");
-    //     LocalDate startDate = LocalDate.parse(scanner.nextLine());
+    // System.out.print("Enter task startDate(YYYY-MM-dd): ");
+    // LocalDate startDate = LocalDate.parse(scanner.nextLine());
 
-    //     System.out.print("Enter task dueDate(YYYY-MM-dd): ");
-    //     LocalDate dueDate = LocalDate.parse(scanner.nextLine());
+    // System.out.print("Enter task dueDate(YYYY-MM-dd): ");
+    // LocalDate dueDate = LocalDate.parse(scanner.nextLine());
 
-    //     System.out.print("Enter task priority: ");
-    //     int priority = scanner.nextInt();
-    //     scanner.nextLine();
+    // System.out.print("Enter task priority: ");
+    // int priority = scanner.nextInt();
+    // scanner.nextLine();
 
-    //     System.out.print("Enter task description: ");
-    //     String description = scanner.nextLine();
+    // System.out.print("Enter task description: ");
+    // String description = scanner.nextLine();
 
-    //     Task task = new Task(title, startDate, dueDate, priority, description);
+    // Task task = new Task(title, startDate, dueDate, priority, description);
 
-    //     return task;
+    // return task;
     // }
 
 }

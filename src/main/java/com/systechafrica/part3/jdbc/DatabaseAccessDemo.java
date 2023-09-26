@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
@@ -72,8 +73,8 @@ public class DatabaseAccessDemo {
 
                 int id = resultSet.getInt("task_id");
                 String title = resultSet.getString("title");
-                LocalDate startDate  = LocalDate.parse( resultSet.getString("start_date"));
-                LocalDate dueDate = LocalDate.parse(resultSet.getString("due_date"));
+                LocalDate startDate  = handleDbDate( resultSet.getString("start_date"));
+                LocalDate dueDate = handleDbDate(resultSet.getString("due_date"));
                 int priority = resultSet.getInt("priority");
                 String description = resultSet.getString("description");
 
@@ -100,10 +101,21 @@ public class DatabaseAccessDemo {
             LOGGER.severe("Unable to obtain class for JDBC driver " + e.getMessage());
         } catch (SQLException e) {
             LOGGER.severe("Database operation failure " + e.getMessage());
-        } catch (Exception e) {
+        } catch (DateTimeParseException e) {
+            LOGGER.severe("Unable to parse date " + e.getMessage());
+        }
+                catch (Exception e) {
             LOGGER.severe("Oops! error occurred " + e.getMessage());
+            e.printStackTrace();
         }
 
+    }
+
+    public static LocalDate handleDbDate(String text){
+        if(text == null){
+            return null;
+        }
+        return LocalDate.parse(text);
     }
 
     // private static Task getTaskFromUser(Scanner scanner) {

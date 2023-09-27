@@ -1,2 +1,8 @@
 2023-09-26 22:08:48 | main | INFO | Successfully signed in2023-09-26 22:08:58 | addItem | INFO | Rows affected i.e inserted 1
 2023-09-26 22:09:25 | addItem | INFO | Rows affected i.e inserted 1
+2023-09-27 10:06:57 | main | INFO | Successfully signed in 
+2023-09-27 10:07:11 | addItem | INFO | Rows affected i.e inserted 1
+2023-09-27 19:53:47 | signUp | INFO | Rows affected in user table i.e inserted 1
+2023-09-27 21:21:18 | login | INFO | Login successful! Welcome, Admin!
+2023-09-27 21:22:19 | signUp | INFO | Rows affected in user table i.e inserted 1
+2023-09-27 21:22:19 | signUp | INFO | User created successfully

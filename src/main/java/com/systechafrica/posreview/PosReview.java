@@ -21,7 +21,12 @@ public class PosReview {
     double totalPriceOfAllItems = 0;
     int userAmount = 0;
 
-    public static void main(String[] args) throws SecurityException, IOException {
+    // initiating database implementation
+    PosDataAccessImplementation mySql = new PosDataAccessImplementation();
+    // creating connection
+    Connection connection = mySql.connect();
+
+    public static void main(String[] args) throws SecurityException, IOException, SQLException {
 
         // PosDataAccessImplementation mysql = new PosDataAccessImplementation();
         // String createDatabaseTable = "CREATE TABLE IF NOT EXISTS items ( item_id INT
@@ -47,42 +52,128 @@ public class PosReview {
 
         PosReview app = new PosReview();
 
-        // app.addItem();
-        boolean userSignedIn = app.userLogin();
-        if (userSignedIn) {
-            System.out.println();
-            LOGGER.info("Successfully signed in \n");
-            app.displayMenu();
+        app.userLogin();
+   
 
+        // boolean userSignedIn = app.userLogin();
+        // if (userSignedIn) {
+        // System.out.println();
+        // LOGGER.info("Successfully signed in \n");
+        // app.displayMenu();
+
+        // }
+
+    }
+
+    // getting user credentials and storing them on class user
+    private static User getUserCredentials(Scanner scanner) {
+        System.out.println("Create New Account");
+        System.out.println("***************************");
+        System.out.println();
+        // reading user input
+        System.out.print("Enter your username: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Enter your password: ");
+        String password = scanner.nextLine();
+
+        User user = new User(username, password);
+
+        System.out.println(user);
+
+        return user;
+    }
+
+    // signing up functionality
+    public void signUp() {
+        // creating user to database
+
+        String insertUserQuery = "INSERT INTO users(username, password)VALUES(?,?);";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(insertUserQuery);
+
+            User user = getUserCredentials(scanner);
+
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+
+            int noOfRowsAffected = preparedStatement.executeUpdate();
+            LOGGER.info("Rows affected in user table i.e inserted " + noOfRowsAffected +
+                    "\n");
+            System.out.println();
+            LOGGER.info("User created successfully\n");
+            
+        } catch (SQLException e) {
+            LOGGER.info("Error when creating user " + e.getMessage() + "\n");
+            e.printStackTrace();
         }
 
     }
 
+    // login functionality
+    public boolean login() {
+        System.out.println("Log in into POS");
+        System.out.println("***************************");
+        System.out.println();
+        // reading user input
+        System.out.print("Enter your username: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Enter your password: ");
+        String password = scanner.nextLine();
+
+        // taking data from database
+
+        String selectUserQuery = "SELECT * FROM users WHERE username = ? AND password = ?";
+        // ResultSet selectedUser = mySql.executeQuery(selectUserQuery);
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectUserQuery);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            // resultSet will return true if resultset.next() - there is a value fetched
+            // from the db
+            if (resultSet.next()) {
+                LOGGER.info("Login successful! Welcome, " + username + "!" + "\n");                
+
+            } else {
+                LOGGER.info("Login failed. Please check your username and password.\n");
+            }
+            return resultSet.next();
+        } catch (SQLException e) {
+            LOGGER.info("Error when logging to your account " + e.getMessage() + "\n");
+            e.printStackTrace();
+        }
+        return false;
+
+    }
+
+    // the new log in functionality if user has account - login : no account -
+    // signup
     public boolean userLogin() {
 
-        int passwordAttempts = 1;
         boolean isUserLoggedIn = false;
 
         System.out.println();
         System.out.println("Welcome to Systech POS System");
         System.out.println();
 
-        while (passwordAttempts <= 3) {
-            System.out.print("Enter your password: ");
-            String password = scanner.nextLine();
+        System.out.print("Hello, do you have an account? (Y/N): ");
+        char userHasAccount = scanner.nextLine().toUpperCase().charAt(0);
+        System.out.println();
 
-            if (password.equals(PASSWORD)) {
-                isUserLoggedIn = true;
-                break;
-            }
-
-            if (passwordAttempts == 3) {
-                LOGGER.info("Wrong password, Maximum attempts Try again later!");
-            } else {
-                LOGGER.info("Wrong password, Try again");
-            }
-
-            passwordAttempts = passwordAttempts + 1;
+        if (userHasAccount == 'Y') {
+            login();
+            isUserLoggedIn = true;
+        } else if(userHasAccount == 'N') {
+            signUp();
+            isUserLoggedIn = true;
+        }else{
+            System.out.println("Invalid input, Choose either Y or N");
+            System.out.println();
+            userLogin();
         }
 
         return isUserLoggedIn;
@@ -116,7 +207,7 @@ public class PosReview {
                 try {
                     addItem();
                 } catch (ZeroNegativeErrorHandling e) {
-                    LOGGER.info(e.getMessage());
+                    LOGGER.info(e.getMessage() + "\n");
                     displayMenu();
                 }
                 break;
@@ -143,13 +234,10 @@ public class PosReview {
 
     public void addItem() throws ZeroNegativeErrorHandling {
 
-        PosDataAccessImplementation mySql = new PosDataAccessImplementation();
-
-        Connection connection = mySql.connect();
-        String insertQuery = "INSERT INTO items(item_code,item_quantity, item_price)VALUES(?,?,?);";
+        String insertItemQuery = "INSERT INTO items(item_code,item_quantity, item_price)VALUES(?,?,?);";
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+            PreparedStatement preparedStatement = connection.prepareStatement(insertItemQuery);
             char choice;
 
             do {
@@ -160,7 +248,7 @@ public class PosReview {
                 preparedStatement.setDouble(3, item.getPrice());
 
                 int noOfRowsAffected = preparedStatement.executeUpdate();
-                LOGGER.info("Rows affected i.e inserted " + noOfRowsAffected + "\n");
+                LOGGER.info("Rows affected in item table i.e inserted " + noOfRowsAffected + "\n");
 
                 System.out.print("Do you want to add another item? (Y/N): ");
                 choice = scanner.nextLine().toUpperCase().charAt(0);
@@ -170,7 +258,7 @@ public class PosReview {
             displayMenu();
 
         } catch (SQLException e) {
-            LOGGER.info("Error when inserting data " + e.getMessage());
+            LOGGER.info("Error when inserting data " + e.getMessage() + "\n");
             e.printStackTrace();
         }
 
@@ -199,6 +287,8 @@ public class PosReview {
 
         return item;
     }
+
+    // private static
 
     public void makePayment() {
 

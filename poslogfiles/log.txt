@@ -1,0 +1,7 @@
+2023-09-29 13:21:30 | login | INFO | User id 101
+2023-09-29 13:21:30 | login | INFO | Login successful! Welcome, Admin!
+2023-09-29 13:21:30 | main | INFO | Successfully signed in 
+2023-09-29 13:21:55 | addItem | INFO | Rows affected in item table i.e inserted 1
+2023-09-29 13:22:48 | login | INFO | User id 2
+2023-09-29 13:22:48 | login | INFO | Login successful! Welcome, Musili!
+2023-09-29 13:22:48 | main | INFO | Successfully signed in 

@@ -104,10 +104,6 @@ public class PosReview {
 
         String selectUserQuery = "SELECT * FROM users WHERE username = ? AND password = ?";
 
-        //checking whether if user with the specific account had previous transactions
-        //if true - will alter the user_id so as to make new transaction with different id
-        //if false - user will go on and make transactions for the first time
-      
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(selectUserQuery);
             preparedStatement.setString(1, username);
@@ -118,6 +114,12 @@ public class PosReview {
             // from the db
             if (resultSet.next()) {
                 loggedInUserId = resultSet.getInt("user_id");
+                // checking whether if user with the specific account had previous transactions
+                // if true - will alter the user_id so as to make new transaction with different
+                // id
+                // if false - user will go on and make transactions for the first time
+                // hence you can handle different transactions at different times with same user
+                userPreviousTransactions();
                 LOGGER.info("User id " + loggedInUserId + "\n");
                 LOGGER.info("Login successful! Welcome, " + username + "!" + "\n");
                 userSignedIn = true;
@@ -128,7 +130,7 @@ public class PosReview {
                 userSignedIn = false;
                 return userSignedIn;
             }
-          
+
         } catch (SQLException e) {
             LOGGER.info("Error when logging to your account " + e.getMessage() + "\n");
             e.printStackTrace();
@@ -165,6 +167,27 @@ public class PosReview {
 
         return isUserLoggedIn;
 
+    }
+
+    public int userPreviousTransactions() {
+        String selectUserItemsQuery = "SELECT * FROM items WHERE user_id = ?";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectUserItemsQuery);
+            preparedStatement.setInt(1, loggedInUserId);
+            ResultSet items = preparedStatement.executeQuery();
+            if (items.next()) {
+                loggedInUserId = loggedInUserId + 100;
+                return loggedInUserId;
+            } else {
+                return loggedInUserId;
+            }
+
+        } catch (SQLException e) {
+            LOGGER.info("Error when checking user previous transactions " + e.getMessage());
+            e.printStackTrace();
+            return loggedInUserId;
+        }
     }
 
     public void displayMenu() {
@@ -335,7 +358,8 @@ public class PosReview {
             // cashier enters
             // insufficient amount it can call the method again
 
-            //the total amount of items can't be zero or negative number because I caught the exception when prompting user to enter item 
+            // the total amount of items can't be zero or negative number because I caught
+            // the exception when prompting user to enter item
 
             while (userAmount < totalPriceOfAllItems) {
                 System.out.println();

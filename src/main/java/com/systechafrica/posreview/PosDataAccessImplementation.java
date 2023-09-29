@@ -10,7 +10,6 @@ import static com.systechafrica.posreview.PosReview.LOGGER;
 public class PosDataAccessImplementation implements PosDataAccess {
 
     //   private static final Logger LOGGER = PosCustomLogger.getLogger();
-
     
     public PosDataAccessImplementation() {
 

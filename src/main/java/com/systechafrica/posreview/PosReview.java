@@ -16,12 +16,11 @@ public class PosReview {
 
     Scanner scanner = new Scanner(System.in);
     final String PASSWORD = "Admin123";
-    Item[] itemsArray = new Item[100];
     int numberOfItems = 0;
     double totalPriceOfAllItems = 0;
     int userAmount = 0;
     int loggedInUserId;
-
+    boolean userSignedIn = false;
 
     // initiating database implementation
     PosDataAccessImplementation mySql = new PosDataAccessImplementation();
@@ -30,38 +29,14 @@ public class PosReview {
 
     public static void main(String[] args) throws SecurityException, IOException, SQLException {
 
-        // PosDataAccessImplementation mysql = new PosDataAccessImplementation();
-        // String createDatabaseTable = "CREATE TABLE IF NOT EXISTS items ( item_id INT
-        // AUTO_INCREMENT, item_code VARCHAR(255) NOT NULL, item_quantity INT NOT NULL
-        // DEFAULT 1, item_price DOUBLE NOT NULL, created_at TIMESTAMP DEFAULT
-        // CURRENT_TIMESTAMP, PRIMARY KEY (item_id));";
-        // int updateStatus = mysql.executeUpdate(createDatabaseTable);
-        // LOGGER.info("Update status = " + updateStatus + "\n");
-
-        // // select query
-        // String selectQuery = "SELECT * FROM items;";
-        // ResultSet items = mysql.executeQuery(selectQuery);
-        // mysql.close();
-        // try {
-        // while (items.next()) {
-        // int itemId = items.getInt("item_id");
-        // String itemCode = items.getString("item_code");
-        // LOGGER.info("ID: " + itemId + " Item code -> " + itemCode + "\n");
-        // }
-        // } catch (SQLException e) {
-        // e.printStackTrace();
-        // }
-
         PosReview app = new PosReview();
 
-        // app.userLogin();
-       app.userLogin();
-        // if (userSignedIn) {
-        //     System.out.println();
-        //     LOGGER.info("Successfully signed in \n");
-        //     app.displayMenu();
-
-        // }
+        app.userLogin();
+        if (app.userSignedIn) {
+            System.out.println();
+            LOGGER.info("Successfully signed in \n");
+            app.displayMenu();
+        }
 
     }
 
@@ -87,7 +62,6 @@ public class PosReview {
     // signing up functionality
     public void signUp() {
         // creating user to database
-
         String insertUserQuery = "INSERT INTO users(username, password)VALUES(?,?);";
 
         try {
@@ -116,8 +90,6 @@ public class PosReview {
     // login functionality
     public boolean login() {
 
-        boolean userSignedIn = false;
-
         System.out.println("Log in into POS");
         System.out.println("***************************");
         System.out.println();
@@ -132,6 +104,10 @@ public class PosReview {
 
         String selectUserQuery = "SELECT * FROM users WHERE username = ? AND password = ?";
 
+        //checking whether if user with the specific account had previous transactions
+        //if true - will alter the user_id so as to make new transaction with different id
+        //if false - user will go on and make transactions for the first time
+      
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(selectUserQuery);
             preparedStatement.setString(1, username);
@@ -145,15 +121,14 @@ public class PosReview {
                 LOGGER.info("User id " + loggedInUserId + "\n");
                 LOGGER.info("Login successful! Welcome, " + username + "!" + "\n");
                 userSignedIn = true;
-                System.out.println(userSignedIn);
                 return userSignedIn;
 
             } else {
                 LOGGER.info("Login failed. Please check your username and password.\n");
                 userSignedIn = false;
-                 System.out.println(userSignedIn);
                 return userSignedIn;
             }
+          
         } catch (SQLException e) {
             LOGGER.info("Error when logging to your account " + e.getMessage() + "\n");
             e.printStackTrace();
@@ -178,10 +153,10 @@ public class PosReview {
 
         if (userHasAccount == 'Y') {
             login();
-            
+
         } else if (userHasAccount == 'N') {
             signUp();
-            
+
         } else {
             System.out.println("Invalid input, Choose either Y or N");
             System.out.println();
@@ -305,13 +280,22 @@ public class PosReview {
 
     public void makePayment() {
 
-        displayAllItems();
+        String selectUserItemsQuery = "SELECT * FROM items WHERE user_id = ?";
 
-        // if (numberOfItems == 0) {
-        //     System.out.println("No items in the shopping cart");
-        // } else {
-        //     displayAllItems();
-        // }
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(selectUserItemsQuery);
+            preparedStatement.setInt(1, loggedInUserId);
+            ResultSet items = preparedStatement.executeQuery();
+            if (items.next()) {
+                displayAllItems();
+            } else {
+                LOGGER.info("No items in the shopping cart for this user \n");
+            }
+        } catch (SQLException e) {
+            LOGGER.info("Error when fetching items " + e.getMessage());
+            e.printStackTrace();
+        }
+
     }
 
     public void displayAllItems() {
@@ -332,58 +316,51 @@ public class PosReview {
                 int itemQuantity = items.getInt("item_quantity");
                 double itemPrice = items.getDouble("item_price");
 
-                //after fetching items rom db - you store them in array
-                //then map through items to calculate the total              
-                
-                System.out.println( itemCode + " " + itemQuantity + " " + itemPrice);
+                // Item item = new Item(itemCode, itemQuantity, itemPrice);
+                // itemsArray.add(item);
 
+                System.out.println(itemCode + " \t\t" + itemQuantity + " \t\t" + itemPrice +
+                        " \t\t"
+                        + (itemQuantity * itemPrice));
+
+                totalPriceOfAllItems = totalPriceOfAllItems + (itemQuantity * itemPrice);
             }
+            System.out.println();
+            System.out.println("********************************************************************");
+            System.out.println();
+            System.out.println("Total items price: " + "\t" + " - " + "\t" + "sh: " +
+                    totalPriceOfAllItems + "\n");
+
+            enterUserAmount(); // I am using method to enter user amount so that when the
+            // cashier enters
+            // insufficient amount it can call the method again
+
+            //the total amount of items can't be zero or negative number because I caught the exception when prompting user to enter item 
+
+            while (userAmount < totalPriceOfAllItems) {
+                System.out.println();
+                System.out.println("Insufficient amount, Kindly confirm user amount and try again");
+                System.out.println();
+                enterUserAmount();
+            }
+
+            System.out.println();
+
+            double userChange = userAmount - totalPriceOfAllItems;
+
+            System.out.println("Change: \t" + "sh " + userChange);
+
+            System.out.println();
+
+            System.out.println("********************************************************************");
+            System.out.println();
+            System.out.println("Thank you for shopping with us!");
+            System.out.println();
+            System.out.println("********************************************************************");
         } catch (SQLException e) {
             LOGGER.info("Error when fetching items " + e.getMessage());
             e.printStackTrace();
         }
-
-        // for (int i = 0; i < numberOfItems; i++) {
-
-        //     System.out.println(itemsArray[i].getItemCode() + " \t\t"
-        //             + itemsArray[i].getItemQuantity() + " \t\t" + itemsArray[i].getPrice() + " \t\t"
-        //             + (itemsArray[i].getItemQuantity() * itemsArray[i].getPrice()));
-
-        //     totalPriceOfAllItems = totalPriceOfAllItems + (itemsArray[i].getItemQuantity() * itemsArray[i].getPrice());
-        // }
-        // System.out.println();
-        // System.out.println("********************************************************************");
-        // System.out.println();
-
-        // System.out.println("Total: " + "\t" + " - " + "\t" + "sh: " + totalPriceOfAllItems);
-
-        // System.out.println();
-        // System.out.println("********************************************************************");
-        // System.out.println();
-
-        // enterUserAmount(); // I am using method to enter user amount so that when the cashier enters
-        //                    // insufficient amount it can call the method again
-
-        // while (userAmount < totalPriceOfAllItems) {
-        //     System.out.println();
-        //     System.out.println("Insufficient amount, Kindly confirm user amount and try again");
-        //     System.out.println();
-        //     enterUserAmount();
-        // }
-
-        // System.out.println();
-
-        // double userChange = userAmount - totalPriceOfAllItems;
-
-        // System.out.println("Change: \t" + "sh " + userChange);
-
-        // System.out.println();
-
-        // System.out.println("********************************************************************");
-        // System.out.println();
-        // System.out.println("Thank you for shopping with us!");
-        // System.out.println();
-        // System.out.println("********************************************************************");
 
     }
 

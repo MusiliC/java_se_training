@@ -5,3 +5,23 @@
 2023-09-29 13:22:48 | login | INFO | User id 2
 2023-09-29 13:22:48 | login | INFO | Login successful! Welcome, Musili!
 2023-09-29 13:22:48 | main | INFO | Successfully signed in 
+2023-09-29 14:02:48 | login | INFO | User id 2
+2023-09-29 14:02:48 | login | INFO | Login successful! Welcome, Musili!
+2023-09-29 14:02:48 | main | INFO | Successfully signed in 
+2023-09-29 14:02:50 | makePayment | INFO | No items in the shopping cart for this user 
+2023-09-29 14:06:25 | login | INFO | User id 101
+2023-09-29 14:06:25 | login | INFO | Login successful! Welcome, Admin!
+2023-09-29 14:06:25 | main | INFO | Successfully signed in 
+2023-09-29 14:09:00 | login | INFO | User id 101
+2023-09-29 14:09:00 | login | INFO | Login successful! Welcome, Admin!
+2023-09-29 14:09:00 | main | INFO | Successfully signed in 
+2023-09-29 14:24:18 | login | INFO | User id 89293
+2023-09-29 14:24:18 | login | INFO | Login successful! Welcome, Admin!
+2023-09-29 14:24:18 | main | INFO | Successfully signed in 
+2023-09-29 14:24:20 | makePayment | INFO | No items in the shopping cart for this user 
+2023-09-29 14:56:45 | signUp | INFO | Rows affected in user table i.e inserted 1
+2023-09-29 14:56:45 | signUp | INFO | User created successfully, proceed to login
+2023-09-29 14:56:57 | login | INFO | User id 3
+2023-09-29 14:56:57 | login | INFO | Login successful! Welcome, Cee!
+2023-09-29 14:56:57 | main | INFO | Successfully signed in 
+2023-09-29 14:57:18 | addItem | INFO | Rows affected in item table i.e inserted 1

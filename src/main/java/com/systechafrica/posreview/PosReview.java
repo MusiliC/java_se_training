@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -15,8 +16,6 @@ public class PosReview {
     static final Logger LOGGER = PosCustomLogger.getLogger();
 
     Scanner scanner = new Scanner(System.in);
-    final String PASSWORD = "Admin123";
-    int numberOfItems = 0;
     double totalPriceOfAllItems = 0;
     int userAmount = 0;
     int loggedInUserId;
@@ -170,14 +169,13 @@ public class PosReview {
     }
 
     public int userPreviousTransactions() {
-        String selectUserItemsQuery = "SELECT * FROM items WHERE user_id = ?";
 
+        int randomId = new Random().nextInt(100000);
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(selectUserItemsQuery);
-            preparedStatement.setInt(1, loggedInUserId);
-            ResultSet items = preparedStatement.executeQuery();
+
+            ResultSet items = checkItemsInDB();
             if (items.next()) {
-                loggedInUserId = loggedInUserId + 100;
+                loggedInUserId = loggedInUserId + randomId;
                 return loggedInUserId;
             } else {
                 return loggedInUserId;
@@ -299,16 +297,26 @@ public class PosReview {
         return item;
     }
 
-    // private static
+    // function to check if there is items in the database
+    public ResultSet checkItemsInDB() {
+        String selectUserItemsQuery = "SELECT * FROM items WHERE user_id = ?";
+        PreparedStatement preparedStatement;
+        try {
+            preparedStatement = connection.prepareStatement(selectUserItemsQuery);
+            preparedStatement.setInt(1, loggedInUserId);
+            ResultSet items = preparedStatement.executeQuery();
+            return items;
+        } catch (SQLException e) {
+            LOGGER.info("Error When fetching items from databsae");
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public void makePayment() {
 
-        String selectUserItemsQuery = "SELECT * FROM items WHERE user_id = ?";
-
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(selectUserItemsQuery);
-            preparedStatement.setInt(1, loggedInUserId);
-            ResultSet items = preparedStatement.executeQuery();
+            ResultSet items = checkItemsInDB();
             if (items.next()) {
                 displayAllItems();
             } else {
@@ -323,13 +331,9 @@ public class PosReview {
 
     public void displayAllItems() {
 
-        String selectUserItemsQuery = "SELECT * FROM items WHERE user_id = ?";
-
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(selectUserItemsQuery);
-            preparedStatement.setInt(1, loggedInUserId);
 
-            ResultSet items = preparedStatement.executeQuery();
+            ResultSet items = checkItemsInDB();
             System.out.println("Item Code\t" + "Quantity\t" + "Unit Price\t" + "Total Value ");
             System.out.println();
 
@@ -394,7 +398,48 @@ public class PosReview {
     }
 
     public void displayReceipt() {
-        System.out.println("Not supported at the moment");
+        try {
+            ResultSet items = checkItemsInDB();
+            if (items.next()) {
+                System.out.println("This is your receipt");
+                System.out.println();
+                System.out.println("Item Code\t" + "Quantity\t" + "Unit Price\t" + "Total Value ");
+                System.out.println();
+                String itemCode = items.getString("item_code");
+                int itemQuantity = items.getInt("item_quantity");
+                double itemPrice = items.getDouble("item_price");
+
+                System.out.println(itemCode + " \t\t" + itemQuantity + " \t\t" + itemPrice +
+                        " \t\t"
+                        + (itemQuantity * itemPrice));
+
+                totalPriceOfAllItems = totalPriceOfAllItems + (itemQuantity * itemPrice);
+
+                System.out.println();
+                System.out.println("********************************************************************");
+                System.out.println();
+                System.out.println("Total items price: " + "\t" + " - " + "\t" + "sh: " +
+                        totalPriceOfAllItems + "\n");
+
+                System.out.print("Do you want to proceed to payment? (Y/N): ");
+                char choice = scanner.nextLine().toUpperCase().charAt(0);
+                System.out.println();
+
+                if (choice == 'Y') {
+                    displayAllItems();
+                } else if (choice == 'N') {
+                    displayMenu();
+                }else{
+                    System.out.println("User input should be either Y/N");
+                }
+
+            } else {
+                LOGGER.info("No items to display receipt \n");
+            }
+        } catch (SQLException e) {
+            LOGGER.info("Error when fetching items to display receipt " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }

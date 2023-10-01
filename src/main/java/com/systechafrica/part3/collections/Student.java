@@ -1,6 +1,8 @@
 package com.systechafrica.part3.collections;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
     private String name;
     private String regNo;
     private String email;

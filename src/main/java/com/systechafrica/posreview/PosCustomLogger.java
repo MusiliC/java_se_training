@@ -8,6 +8,7 @@ public class PosCustomLogger {
 
     public static Logger getLogger() {
         Logger LOGGER = Logger.getLogger("CustomLoggerForPos");
+        
         // the path to log files
         
         try {

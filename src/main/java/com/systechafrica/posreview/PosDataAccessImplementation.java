@@ -12,7 +12,6 @@ public class PosDataAccessImplementation implements PosDataAccess {
     //   private static final Logger LOGGER = PosCustomLogger.getLogger();
     
     public PosDataAccessImplementation() {
-
         // loading JDLC
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

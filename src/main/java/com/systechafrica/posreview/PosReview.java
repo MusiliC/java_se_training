@@ -23,6 +23,7 @@ public class PosReview {
 
     // initiating database implementation
     PosDataAccessImplementation mySql = new PosDataAccessImplementation();
+    
     // creating connection
     Connection connection = mySql.connect();
 

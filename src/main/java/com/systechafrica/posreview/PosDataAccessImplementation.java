@@ -26,7 +26,7 @@ public class PosDataAccessImplementation implements PosDataAccess {
             // establish connection - driver manager
             String connectionUrl = "jdbc:mysql://localhost:3306/pos";
             String user = "root";
-            String password = "";
+            String password = "root";
             Connection connection = DriverManager.getConnection(connectionUrl, user, password);
             
             // return an object of connection

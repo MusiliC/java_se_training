@@ -13,3 +13,4 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
 2023-10-06 11:45:00 | connect | INFO | Error when creating connection Access denied for user 'musili'@'localhost'
 2023-10-06 11:45:48 | connect | INFO | Error when creating connection Access denied for user 'musili'@'localhost'
 2023-10-06 11:48:35 | connect | INFO | Error when creating connection Access denied for user 'root'@'localhost'
+2023-10-07 05:43:58 | login | INFO | Error when logging to your account Table 'pos.users' doesn't exist

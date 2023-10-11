@@ -12,8 +12,8 @@ public class WorkingWithUtilDate {
         Date todayDate = new Date();
         System.out.println("Todays date " + todayDate);
 
-        Calendar calendar =  Calendar.getInstance();
-        calendar.add(Calendar.MONTH, 2);
+        // Calendar calendar =  Calendar.getInstance();
+        // calendar.add(Calendar.MONTH, 2);
 
         //add two days o the date
        // System.out.println(calendar.getTime());
@@ -25,7 +25,9 @@ public class WorkingWithUtilDate {
 
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-            Date tomorrowDate = dateFormat.parse(dateString);         
+            Date tomorrowDate = dateFormat.parse(dateString);   
+            
+            System.out.println(tomorrowDate);
          
 
             if (tomorrowDate.after(todayDate)) {

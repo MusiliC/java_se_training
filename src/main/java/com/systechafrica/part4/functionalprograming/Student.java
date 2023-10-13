@@ -18,6 +18,12 @@ public class Student {
         this.emailName = emailName;
     }
 
+     public Student(int id, String firstName, String emailName) {
+        this.id = id;
+        this.firstName = firstName;        
+        this.emailName = emailName;
+    }
+
 
 
     public int getId() {

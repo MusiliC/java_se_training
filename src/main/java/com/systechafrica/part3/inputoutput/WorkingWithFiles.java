@@ -11,7 +11,8 @@ import java.util.Scanner;
 public class WorkingWithFiles {
     public static void main(String[] args) throws IOException {
         //workingWithFiles();
-        workingWithFileStreams();
+       // workingWithFileStreams();
+       
     }
 
     public static void workingWithFiles() throws IOException {

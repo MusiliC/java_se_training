@@ -64,6 +64,7 @@ public class PosReview {
         // creating user to database
         String insertUserQuery = "INSERT INTO users(username, password)VALUES(?,?);";
 
+        
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(insertUserQuery);
 
